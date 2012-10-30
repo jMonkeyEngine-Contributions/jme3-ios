@@ -1,0 +1,206 @@
+    <target name="build-ios">
+        <antcall target="build-ios-arm" inheritall="false" inheritrefs="false"/>
+        <antcall target="build-ios-i386" inheritall="false" inheritrefs="false"/>
+        <echo>The needed native iOS libraries have been built, open the XCode project at ios/project to run the application on iOS.</echo>
+    </target>
+
+    <target name="build-ios-arm" depends="init, -init-platform-arm, -create-properties, -build-ios" description="Builds iOS libraries for device"/>
+    
+    <target name="build-ios-i386" depends="init, -init-platform-i386, -create-properties, -build-ios" description="Builds iOS libraries for simulator"/>
+
+    <target name="-init-platform-arm" description="Initialize for i386 platform">
+        <property name="ios.arch" value="arm"/>
+        <property file="resources/ios/ios.properties"/>
+    </target>
+    
+    <target name="-init-platform-i386" description="Initialize for arm platform">
+        <property name="ios.arch" value="i386"/>
+        <property file="resources/ios/ios.properties"/>
+    </target>
+    
+    <target name="-check-properties-platform" description="Checks the used platform (arm/i386)">
+        <taskdef resource="proguard/ant/task.properties"
+             classpath="${libs.pro-guard.classpath}"/>
+        <condition property="ios.do.arm">
+            <equals arg1="${ios.arch}" arg2="arm"/>
+        </condition>
+    </target>
+    
+    <target name="-create-properties-arm" if="ios.do.arm" description="Sets properties for arm build">
+        <property name="ios.target" value="iPhoneOS"/>
+        <property name="ios.arch.flag" value="${ios.arm.flag}"/>
+        
+        <property name="ios.avian.classpath" value="${ios.avian.arm.classpath}"/>
+        <property name="ios.avian.bootimage-generator" value="${ios.avian.arm.bootimage-generator}"/>
+        <property name="ios.avian.generator" value="${ios.avian.arm.generator}"/>
+        <property name="ios.avian.converter" value="${ios.avian.arm.converter}"/>
+        <property name="ios.avian.binary" value="${ios.avian.arm.binary}"/>
+    </target>
+
+    <target name="-create-properties-i386" unless="ios.do.arm" description="Sets properties for i386 build">
+        <property name="ios.target" value="iPhoneSimulator"/>
+        <property name="ios.arch.flag" value="${ios.i386.flag}"/>
+        
+        <property name="ios.avian.classpath" value="${ios.avian.i386.classpath}"/>
+        <property name="ios.avian.bootimage-generator" value="${ios.avian.i386.bootimage-generator}"/>
+        <property name="ios.avian.generator" value="${ios.avian.i386.generator}"/>
+        <property name="ios.avian.converter" value="${ios.avian.i386.converter}"/>
+        <property name="ios.avian.binary" value="${ios.avian.i386.binary}"/>
+    </target>
+    
+    <target name="-create-properties" depends="-check-properties-platform, -create-properties-arm, -create-properties-i386" description="Sets global properties based on platform">
+        <property name="ios.sdk.sysroot" value="${ios.dev.root}/Platforms/${ios.target}.platform/Developer/SDKs/${ios.target}${ios.version}.sdk"/>
+        <property name="ios.cc.compiler.path" value="${ios.dev.root}/Platforms/${ios.target}.platform/Developer/usr/bin/llvm-gcc-4.2"/>
+        <property name="ios.cc.flags" value="-isysroot ${ios.sdk.sysroot} -arch ${ios.arch.flag}"/>
+    </target>
+    
+    <target name="-build-ios" depends="-compile-ios-java,
+                                     -package-ios-classpath,
+                                     -make-ios-resourceimage,
+                                     -make-ios-bootimage,
+                                     -compile-ios-native,
+                                     -expand-ios-binary,
+                                     -create-ios-library-list"/>
+    
+    <target name="-compile-ios-java" description="Compiles the java classes for iOS">
+        <mkdir dir="${ios.build.classes.dir}"/>
+        <javac
+            destdir="${ios.build.classes.dir}"
+            srcdir="${ios.cc.source.dir}"
+            classpath="${run.classpath}:${libs.ios-base.classpath}"/>
+        <copy todir="${ios.build.classes.dir}">
+            <fileset dir="${ios.cc.source.dir}" excludes="${build.classes.excludes},${excludes},**/*.c,**/*.m" includes="${includes}"/>
+        </copy>
+    </target>
+    
+    <target name="-check-classpath-uptodate" description="Checks if the iOS classpath needs to be rebuilt">
+        <!--TODO: not very safe check for changes-->
+        <uptodate property="ios.classpath.uptodate" targetfile="${ios.classpath.checkfile}">
+            <srcfiles dir="${build.classes.dir}" includes="**/*.class"/>
+            <srcfiles file="${build.dir}/${assets.jar.name}"/>
+            <srcfiles dir="${ios.cc.source.dir}" includes="**/*.java"/>
+        </uptodate>
+    </target>
+    
+    <target name="-package-ios-classpath" unless="ios.classpath.uptodate" depends="-check-classpath-uptodate" description="Packages the iOS classpath using proguard">
+        <mkdir dir="${ios.build.classes.dir}"/>
+        <echo>Packaging iOS classpath and resources</echo>
+        <!--TODO: use internal references instead of dist/lib output-->
+        <pathconvert pathsep="${path.separator}" property="ios.avian.project.classpath">
+            <path>
+                <fileset dir="${dist.dir}/lib" 
+                        includes="*.jar"
+                        excludes="${ios.jar.excludes}"/>
+                <fileset file="${dist.jar}"/>
+            </path>
+        </pathconvert>
+        <proguard>
+            -injars  ${libs.ios-base.classpath}:${ios.avian.classpath}:${ios.avian.project.classpath}(!META-INF/MANIFEST.MF)
+            -outjars ${ios.build.classes.dir}(**.class)
+            -outjars ${ios.build.resources.jar}
+            -include ${ios.proguard.vm.path}
+            -include ${ios.proguard.openjdk.path}
+            -dontusemixedcaseclassnames
+            -dontwarn
+            -dontnote
+            -dontobfuscate
+            -dontoptimize
+            -allowaccessmodification
+            -dontpreverify
+            ${ios.proguard.options}
+        </proguard>
+        <unzip dest="${ios.build.classes.dir}" overwrite="true">
+            <fileset dir="${ios.build.classes.dir}" includes="**/*.jar"/>
+        </unzip>
+        <delete quiet="true">
+            <fileset dir="${ios.build.classes.dir}" includes="**/*.jar"/>
+        </delete>
+        <delete failonerror="false">
+            <fileset dir="${ios.build.classes.dir}" includes="${ios.classpath.excludes}"/>
+        </delete>
+        <touch file="${ios.classpath.checkfile}" verbose="false"/>
+    </target>
+    
+    <target name="-check-images-uptodate" description="Checks if the binary images for iOS are up to date">
+        <uptodate property="ios.images.uptodate" targetfile="${ios.images.checkfile}">
+            <srcfiles dir="${ios.build.classes.dir}" includes="**/*.class"/>
+            <srcfiles file="${ios.build.resources.jar}"/>
+        </uptodate>
+    </target>
+    
+    <target name="-make-ios-resourceimage" unless="ios.images.uptodate" depends="-check-images-uptodate" description="Creates the iOS resources image">
+        <mkdir dir="${ios.build.libs.dir}"/>
+        <delete file="${ios.build.resources.o}"/>
+        <echo>Creating iOS resources object file for ${ios.arch}</echo>
+        <exec executable="${ios.avian.converter}" failonerror="true">
+            <arg line="${ios.build.resources.jar}"/>
+            <arg line="${ios.build.resources.o}"/>
+            <arg line="_binary_resources_jar_start _binary_resources_jar_end"/>
+            <arg line="${ios.platform}"/>
+            <arg line="${ios.arch}"/>
+            <arg line="1"/>
+        </exec>
+    </target>
+    
+    <target name="-make-ios-bootimage" unless="ios.images.uptodate" depends="-check-images-uptodate" description="Creates the iOS boot image and code image">
+        <mkdir dir="${ios.build.libs.dir}"/>
+        <delete file="${ios.build.bootimage.o}"/>
+        <delete file="${ios.build.codeimage.o}"/>
+        <echo>Creating iOS bootimage and codeimage for ${ios.arch}</echo>
+        <exec executable="${ios.avian.bootimage-generator}" failonerror="true">
+            <arg line="-cp ${ios.build.classes.dir}"/>
+            <arg line="-bootimage ${ios.build.bootimage.o}"/>
+            <arg line="-codeimage ${ios.build.codeimage.o}"/>
+        </exec>
+        <touch file="${ios.images.checkfile}" verbose="false"/>
+    </target>
+    
+    <target name="-compile-ios-native" description="Compiles the native classes from ios/src for the iOS project">
+        <mkdir dir="${ios.build.libs.dir}"/>
+        <apply executable="${ios.cc.compiler.path}" failonerror="true" dir="${ios.build.libs.dir}">
+            <arg value="-c"/>
+            <fileset dir="${ios.cc.source.dir}">
+                <include name="*.c"/>
+                <include name="*.m"/>
+                <modified update="true"
+                        seldirs="true"
+                        cache="propertyfile"
+                        algorithm="digest"
+                        comparator="equal">
+                    <param name="cache.cachefile"     value="${ios.cc.cache}"/>
+                    <param name="algorithm.algorithm" value="MD5"/>
+                </modified>
+            </fileset>
+            <arg line="${ios.cc.flags} ${ios.cc.cflags}"/>
+        </apply>
+    </target>
+
+    <target name="-expand-ios-binary" unless="ios.images.uptodate" description="Expands libavian.a to .o files for the iOS project">
+        <mkdir dir="${ios.build.libs.dir}"/>
+        <echo>Expanding libavian.h for ${ios.arch}</echo>
+        <exec executable="ar" dir="${ios.build.libs.dir}">
+            <arg line="x"/>
+            <arg line="${ios.avian.binary}"/>
+        </exec>
+        <delete file="${ios.build.libs.dir}/__.SYMDEF" failonerror="false" quiet="true"/>
+    </target>
+    
+    <target name="-check-libs-uptodate" description="Checks if the .o library list is up to date">
+        <uptodate property="ios.libs.uptodate" targetfile="${ios.build.libs.file}">
+            <srcfiles dir="${ios.build.libs.dir}" includes="**/*.o"/>
+        </uptodate>
+    </target>
+    
+    <target name="-create-ios-library-list" unless="ios.libs.uptodate" depends="-check-libs-uptodate" description="Creates the .o library list">
+        <echo>Create library list for ${ios.arch}</echo>
+        <pathconvert property="ios.build.arch.dir.resolved">
+            <path path="${basedir}"/>
+        </pathconvert>
+        <fileset id="ios.build.libs.fileset" dir="${ios.build.libs.dir}">
+            <include name="*.o"/>
+        </fileset>
+        <pathconvert pathsep="${line.separator}" property="ios.build.libs.list" refid="ios.build.libs.fileset">
+            <map from="${ios.build.arch.dir.resolved}/" to="../../"/>
+        </pathconvert>
+        <echo file="${ios.build.libs.file}" force="true">${ios.build.libs.list}</echo>
+    </target>

@@ -1,0 +1,372 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		08914C09142A826B00991C80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08914C08142A826B00991C80 /* UIKit.framework */; };
+		08914C0B142A826B00991C80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08914C0A142A826B00991C80 /* Foundation.framework */; };
+		08914C0D142A826B00991C80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08914C0C142A826B00991C80 /* CoreGraphics.framework */; };
+		08914C13142A826B00991C80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08914C11142A826B00991C80 /* InfoPlist.strings */; };
+		08914C15142A826B00991C80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 08914C14142A826B00991C80 /* main.m */; };
+		08914C19142A826B00991C80 /* jmeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 08914C18142A826B00991C80 /* jmeAppDelegate.m */; };
+		08914C1D142A826B00991C80 /* jmeAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 08914C1C142A826B00991C80 /* jmeAppDelegate_iPhone.m */; };
+		08914C20142A826B00991C80 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08914C1E142A826B00991C80 /* MainWindow_iPhone.xib */; };
+		08914C24142A826B00991C80 /* jmeAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 08914C23142A826B00991C80 /* jmeAppDelegate_iPad.m */; };
+		08914C27142A826B00991C80 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08914C25142A826B00991C80 /* MainWindow_iPad.xib */; };
+		CC69FB0F16374681009585B5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC69FB0E16374681009585B5 /* OpenGLES.framework */; };
+		CCFD653F163755D80020EFDD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD653E163755D80020EFDD /* GLKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		08914C04142A826B00991C80 /* jme-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "jme-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		08914C08142A826B00991C80 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		08914C0A142A826B00991C80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		08914C0C142A826B00991C80 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		08914C10142A826B00991C80 /* jme-ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "jme-ios-Info.plist"; sourceTree = "<group>"; };
+		08914C12142A826B00991C80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		08914C14142A826B00991C80 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		08914C16142A826B00991C80 /* jme-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jme-ios-Prefix.pch"; sourceTree = "<group>"; };
+		08914C17142A826B00991C80 /* jmeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jmeAppDelegate.h; sourceTree = "<group>"; };
+		08914C18142A826B00991C80 /* jmeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jmeAppDelegate.m; sourceTree = "<group>"; };
+		08914C1B142A826B00991C80 /* jmeAppDelegate_iPhone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = jmeAppDelegate_iPhone.h; path = iPhone/jmeAppDelegate_iPhone.h; sourceTree = "<group>"; };
+		08914C1C142A826B00991C80 /* jmeAppDelegate_iPhone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = jmeAppDelegate_iPhone.m; path = iPhone/jmeAppDelegate_iPhone.m; sourceTree = "<group>"; };
+		08914C1F142A826B00991C80 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPhone/en.lproj/MainWindow_iPhone.xib; sourceTree = "<group>"; };
+		08914C22142A826B00991C80 /* jmeAppDelegate_iPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = jmeAppDelegate_iPad.h; path = iPad/jmeAppDelegate_iPad.h; sourceTree = "<group>"; };
+		08914C23142A826B00991C80 /* jmeAppDelegate_iPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = jmeAppDelegate_iPad.m; path = iPad/jmeAppDelegate_iPad.m; sourceTree = "<group>"; };
+		08914C26142A826B00991C80 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPad/en.lproj/MainWindow_iPad.xib; sourceTree = "<group>"; };
+		CC69FB0E16374681009585B5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		CCFD653E163755D80020EFDD /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		08914C01142A826B00991C80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08914C09142A826B00991C80 /* UIKit.framework in Frameworks */,
+				08914C0B142A826B00991C80 /* Foundation.framework in Frameworks */,
+				08914C0D142A826B00991C80 /* CoreGraphics.framework in Frameworks */,
+				CC69FB0F16374681009585B5 /* OpenGLES.framework in Frameworks */,
+				CCFD653F163755D80020EFDD /* GLKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08914BF9142A826B00991C80 = {
+			isa = PBXGroup;
+			children = (
+				08914C0E142A826B00991C80 /* jme-ios */,
+				08914C07142A826B00991C80 /* Frameworks */,
+				08914C05142A826B00991C80 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		08914C05142A826B00991C80 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				08914C04142A826B00991C80 /* jme-ios.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		08914C07142A826B00991C80 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CCFD653E163755D80020EFDD /* GLKit.framework */,
+				CC69FB0E16374681009585B5 /* OpenGLES.framework */,
+				08914C08142A826B00991C80 /* UIKit.framework */,
+				08914C0A142A826B00991C80 /* Foundation.framework */,
+				08914C0C142A826B00991C80 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		08914C0E142A826B00991C80 /* jme-ios */ = {
+			isa = PBXGroup;
+			children = (
+				08914C17142A826B00991C80 /* jmeAppDelegate.h */,
+				08914C18142A826B00991C80 /* jmeAppDelegate.m */,
+				08914C1A142A826B00991C80 /* iPhone */,
+				08914C21142A826B00991C80 /* iPad */,
+				08914C0F142A826B00991C80 /* Supporting Files */,
+			);
+			path = "jme-ios";
+			sourceTree = "<group>";
+		};
+		08914C0F142A826B00991C80 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				08914C10142A826B00991C80 /* jme-ios-Info.plist */,
+				08914C11142A826B00991C80 /* InfoPlist.strings */,
+				08914C14142A826B00991C80 /* main.m */,
+				08914C16142A826B00991C80 /* jme-ios-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		08914C1A142A826B00991C80 /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				08914C1B142A826B00991C80 /* jmeAppDelegate_iPhone.h */,
+				08914C1C142A826B00991C80 /* jmeAppDelegate_iPhone.m */,
+				08914C1E142A826B00991C80 /* MainWindow_iPhone.xib */,
+			);
+			name = iPhone;
+			sourceTree = "<group>";
+		};
+		08914C21142A826B00991C80 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				08914C22142A826B00991C80 /* jmeAppDelegate_iPad.h */,
+				08914C23142A826B00991C80 /* jmeAppDelegate_iPad.m */,
+				08914C25142A826B00991C80 /* MainWindow_iPad.xib */,
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		08914C03142A826B00991C80 /* jme-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08914C2A142A826B00991C80 /* Build configuration list for PBXNativeTarget "jme-ios" */;
+			buildPhases = (
+				08914C00142A826B00991C80 /* Sources */,
+				08914C01142A826B00991C80 /* Frameworks */,
+				08914C02142A826B00991C80 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "jme-ios";
+			productName = hello;
+			productReference = 08914C04142A826B00991C80 /* jme-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08914BFB142A826B00991C80 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "ECOVATE INC, d.b.a. ReadyTalk";
+			};
+			buildConfigurationList = 08914BFE142A826B00991C80 /* Build configuration list for PBXProject "jme-ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 08914BF9142A826B00991C80;
+			productRefGroup = 08914C05142A826B00991C80 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				08914C03142A826B00991C80 /* jme-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		08914C02142A826B00991C80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08914C13142A826B00991C80 /* InfoPlist.strings in Resources */,
+				08914C20142A826B00991C80 /* MainWindow_iPhone.xib in Resources */,
+				08914C27142A826B00991C80 /* MainWindow_iPad.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		08914C00142A826B00991C80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08914C15142A826B00991C80 /* main.m in Sources */,
+				08914C19142A826B00991C80 /* jmeAppDelegate.m in Sources */,
+				08914C1D142A826B00991C80 /* jmeAppDelegate_iPhone.m in Sources */,
+				08914C24142A826B00991C80 /* jmeAppDelegate_iPad.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		08914C11142A826B00991C80 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08914C12142A826B00991C80 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		08914C1E142A826B00991C80 /* MainWindow_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08914C1F142A826B00991C80 /* en */,
+			);
+			name = MainWindow_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		08914C25142A826B00991C80 /* MainWindow_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08914C26142A826B00991C80 /* en */,
+			);
+			name = MainWindow_iPad.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		08914C28142A826B00991C80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/System/Library/Frameworks/JavaVM.framework/Headers,
+					"\"$(SRCROOT)/../../gluegen/make/stub_includes/platform\"",
+					"\"$(SRCROOT)/../../gluegen/make/stub_includes/macosx\"",
+					"\"$(SRCROOT)/../../gluegen/build/gensrc/native\"",
+					"\"$(SRCROOT)/../../gluegen/build/gensrc/native/MacOSX\"",
+					"\"$(SRCROOT)/../../jogl/make/stub_includes\"/**",
+					"\"$(SRCROOT)/../../jogl/src/jogl/native\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es1\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es2\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-filelist",
+					"../../build/ios-arm/libs.list",
+					"-filelist",
+					"../../build/ios-i386/libs.list",
+					"-lz",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		08914C29142A826B00991C80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/System/Library/Frameworks/JavaVM.framework/Headers,
+					"\"$(SRCROOT)/../../gluegen/make/stub_includes/platform\"",
+					"\"$(SRCROOT)/../../gluegen/make/stub_includes/macosx\"",
+					"\"$(SRCROOT)/../../gluegen/build/gensrc/native\"",
+					"\"$(SRCROOT)/../../gluegen/build/gensrc/native/MacOSX\"",
+					"\"$(SRCROOT)/../../jogl/make/stub_includes\"/**",
+					"\"$(SRCROOT)/../../jogl/src/jogl/native\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es1\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es2\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-filelist",
+					"../../build/ios-arm/libs.list",
+					"-filelist",
+					"../../build/ios-i386/libs.list",
+					"-lz",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		08914C2B142A826B00991C80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					armv7,
+					i386,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jme-ios/jme-ios-Prefix.pch";
+				INFOPLIST_FILE = "jme-ios/jme-ios-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PRODUCT_NAME = "jme-ios";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		08914C2C142A826B00991C80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					armv7,
+					i386,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jme-ios/jme-ios-Prefix.pch";
+				INFOPLIST_FILE = "jme-ios/jme-ios-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PRODUCT_NAME = "jme-ios";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		08914BFE142A826B00991C80 /* Build configuration list for PBXProject "jme-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08914C28142A826B00991C80 /* Debug */,
+				08914C29142A826B00991C80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08914C2A142A826B00991C80 /* Build configuration list for PBXNativeTarget "jme-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08914C2B142A826B00991C80 /* Debug */,
+				08914C2C142A826B00991C80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08914BFB142A826B00991C80 /* Project object */;
+}

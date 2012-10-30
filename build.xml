@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See harness/README in the NetBeans platform -->
+<!-- for some information on what you could do (e.g. targets to override). -->
+<!-- If you delete this file and reopen the project it will be recreated. -->
+<project name="com.jme3.gde.ios" default="netbeans" basedir=".">
+    <description>Builds, tests, and runs the project com.jme3.gde.ios.</description>
+    <import file="nbproject/build-impl.xml"/>
+
+    <target name="init" depends="-zip-data,basic-init,files-init,build-init,-javac-init"/>
+    <target name="-zip-data" description="Zips mac stubs">
+        <delete file="src/com/jme3/gde/ios/ios-data.zip"/>
+        <zip destfile="src/com/jme3/gde/ios/ios-data.zip" update="false">
+            <zipfileset dir="ios-data" prefix=""/>
+        </zip>
+    </target>
+    
+    <target name="package-avian" depends="init" description="Builds and packages the avian library">
+        <delete file="src/com/jme3/gde/ios/avian-openjdk-mac.zip" failonerror="false"/>
+        <exec executable="make" dir="${avian.src.path}">
+            <env key="JAVA_HOME" value="${avian.jdk.path}"/>
+            <arg line="clean"/>
+        </exec>
+        <exec executable="make" dir="${avian.src.path}" failonerror="true">
+            <env key="JAVA_HOME" value="${avian.jdk.path}"/>
+            <arg line="arch=arm"/>
+            <arg line="platform=darwin"/>
+            <arg line="process=compile"/>
+            <arg line="openjdk=${avian.jdk.path}"/>
+            <arg line="openjdk-src=${avian.jdk.src.path}"/>
+            <arg line="bootimage=true"/>
+            <arg line="ios=true"/>
+            <arg line="vm-targets="/>
+            <arg line="build/darwin-arm-bootimage-openjdk-src/bootimage-generator"/>
+            <arg line="build/darwin-arm-bootimage-openjdk-src/binaryToObject/binaryToObject"/>
+            <arg line="build/darwin-arm-bootimage-openjdk-src/classpath.jar"/>
+            <arg line="build/darwin-arm-bootimage-openjdk-src/libavian.a"/>
+        </exec>
+        <zip destfile="src/com/jme3/gde/ios/avian-openjdk-mac.zip">
+            <zipfileset file="${avian.src.path}/build/darwin-arm-bootimage-openjdk-src/bootimage-generator" filemode="755" fullpath="avian-arm/bootimage-generator"/>
+            <zipfileset file="${avian.src.path}/build/darwin-arm-bootimage-openjdk-src/binaryToObject/binaryToObject" filemode="755" fullpath="avian-arm/binaryToObject"/>
+            <zipfileset file="${avian.src.path}/build/darwin-arm-bootimage-openjdk-src/libavian.a" fullpath="avian-arm/libavian.a"/>
+        </zip>
+        <exec executable="make" dir="${avian.src.path}">
+            <env key="JAVA_HOME" value="${avian.jdk.path}"/>
+            <arg line="clean"/>
+        </exec>
+        <exec executable="make" dir="${avian.src.path}" failonerror="true">
+            <env key="JAVA_HOME" value="${avian.jdk.path}"/>
+            <arg line="arch=i386"/>
+            <arg line="platform=darwin"/>
+            <arg line="process=compile"/>
+            <arg line="openjdk=${avian.jdk.path}"/>
+            <arg line="openjdk-src=${avian.jdk.src.path}"/>
+            <arg line="bootimage=true"/>
+            <arg line="ios=true"/>
+            <arg line="vm-targets="/>
+            <arg line="build/darwin-i386-bootimage-openjdk-src/bootimage-generator"/>
+            <arg line="build/darwin-i386-bootimage-openjdk-src/binaryToObject/binaryToObject"/>
+            <arg line="build/darwin-i386-bootimage-openjdk-src/classpath.jar"/>
+            <arg line="build/darwin-i386-bootimage-openjdk-src/libavian.a"/>
+        </exec>
+        <zip destfile="src/com/jme3/gde/ios/avian-openjdk-mac.zip" update="true">
+            <zipfileset file="${avian.src.path}/build/darwin-i386-bootimage-openjdk-src/bootimage-generator" filemode="755" fullpath="avian-i386/bootimage-generator"/>
+            <zipfileset file="${avian.src.path}/build/darwin-i386-bootimage-openjdk-src/binaryToObject/binaryToObject" filemode="755" fullpath="avian-i386/binaryToObject"/>
+            <zipfileset file="${avian.src.path}/build/darwin-i386-bootimage-openjdk-src/libavian.a" fullpath="avian-i386/libavian.a"/>
+            <zipfileset file="${avian.src.path}/vm.pro" fullpath="vm.pro"/>
+            <zipfileset file="${avian.src.path}/vm.pro" fullpath="openjdk.pro"/>
+            <zipfileset dir="${avian.src.path}/build/darwin-i386-bootimage-openjdk-src/classpath" prefix="classpath/">
+                <exclude name="**/java/awt/**"/>
+                <exclude name="**/apple/**"/>
+                <exclude name="**/javax/swing/**"/>
+                <exclude name="**/javax/sound/**"/>
+                <exclude name="**/javax/smartcardio/**"/>
+                <exclude name="**/sun/applet/**"/>
+                <exclude name="**/sun/audio/**"/>
+                <exclude name="**/sun/awt/**"/>
+                <exclude name="**/sun/corba/**"/>
+                <exclude name="**/sun/font/**"/>
+                <exclude name="**/sun/java2d/**"/>
+                <exclude name="**/sun/lwawt/**"/>
+                <exclude name="**/sun/print/**"/>
+                <exclude name="**/sun/swing/**"/>
+                <exclude name="**/com/sun/**"/>
+                <exclude name="**/com/oracle/**"/>
+            </zipfileset>
+        </zip>
+    </target>
+</project>
