@@ -132,7 +132,6 @@ public class IosCompositeProvider implements ProjectCustomizer.CompositeCategory
                         iosFolder = project.getProjectDirectory().createFolder("ios");
                         projFolder.copy(iosFolder, projFolder.getName(), null);
                         srcFolder.copy(iosFolder, srcFolder.getName(), null);
-                        propsFile.copy(iosFolder, propsFile.getName(), propsFile.getExt());
                     } catch (IOException ex) {
                         showError("Error creating iOS folders", ex);
                         return;
