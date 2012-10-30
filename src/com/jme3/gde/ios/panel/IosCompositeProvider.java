@@ -138,6 +138,7 @@ public class IosCompositeProvider implements ProjectCustomizer.CompositeCategory
                         return;
                     }
                 }
+                project.getProjectDirectory().refresh();
             } else {
                 manager.removeExtension(project);
                 if ("true".equals(properties.getProperty("delete.folder"))) {
