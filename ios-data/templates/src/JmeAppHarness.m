@@ -1,8 +1,10 @@
 #include <jni.h>
 #import <UIKit/UIKit.h>
 
+#ifndef JNIEXPORT
 #define JNIEXPORT __attribute__ ((visibility("default"))) \
   __attribute__ ((used))
+#endif
 
 #ifndef _Included_JmeAppHarness
 #define _Included_JmeAppHarness

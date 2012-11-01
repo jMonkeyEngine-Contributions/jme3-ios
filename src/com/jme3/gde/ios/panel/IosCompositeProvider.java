@@ -90,8 +90,8 @@ public class IosCompositeProvider implements ProjectCustomizer.CompositeCategory
     private class SavePropsListener implements ActionListener {
 
         private String extensionName = "ios";
-        private String extensionVersion = "v0.1";
-        private String avianVersion = "v0.2";
+        private String extensionVersion = "v0.2";
+        private String avianVersion = "v0.3";
         private String[] extensionDependencies = new String[]{"jar", "build-ios"};
         private ProjectExtensionManager manager = new ProjectExtensionManager(extensionName, extensionVersion, extensionDependencies);
         private ProjectExtensionProperties properties;
@@ -125,13 +125,14 @@ public class IosCompositeProvider implements ProjectCustomizer.CompositeCategory
                 FileObject resFolder = project.getProjectDirectory().getFileObject("resources/ios");
                 FileObject projFolder = resFolder.getFileObject("templates/project");
                 FileObject srcFolder = resFolder.getFileObject("templates/src");
-                FileObject propsFile = resFolder.getFileObject("ios.properties");
+                FileObject propsFile = resFolder.getFileObject("templates/ios.properties");
                 FileObject iosFolder = project.getProjectDirectory().getFileObject("ios");
                 if (iosFolder == null) {
                     try {
                         iosFolder = project.getProjectDirectory().createFolder("ios");
                         projFolder.copy(iosFolder, projFolder.getName(), null);
                         srcFolder.copy(iosFolder, srcFolder.getName(), null);
+                        propsFile.copy(iosFolder, propsFile.getName(), propsFile.getExt());
                     } catch (IOException ex) {
                         showError("Error creating iOS folders", ex);
                         return;

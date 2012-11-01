@@ -1,9 +1,10 @@
 #include <jni.h>
 #import <UIKit/UIKit.h>
 
-
+#ifndef JNIEXPORT
 #define JNIEXPORT __attribute__ ((visibility("default"))) \
-__attribute__ ((used))
+  __attribute__ ((used))
+#endif
 
 BOOL checkJNIException(JNIEnv *e){
     if ((*e)->ExceptionCheck(e)) {

@@ -24,7 +24,7 @@ public class IosImportantFiles implements ImportantFiles {
     public Node[] getNodes(Project project) {
         ArrayList<Node> list = new ArrayList<Node>();
         try {
-            FileObject mainAct = project.getProjectDirectory().getFileObject("resources/ios/ios.properties");
+            FileObject mainAct = project.getProjectDirectory().getFileObject("ios/ios.properties");
             if (mainAct != null) {
                 Node node = DataObject.find(mainAct).getNodeDelegate();
                 node.setDisplayName("iOS Properties");
@@ -50,7 +50,7 @@ public class IosImportantFiles implements ImportantFiles {
 
     @Override
     public boolean hasFiles(Project proj) {
-        if (proj.getProjectDirectory().getFileObject("resources/ios/ios.properties") != null) {
+        if (proj.getProjectDirectory().getFileObject("ios/ios.properties") != null) {
             return true;
         }
         return false;
