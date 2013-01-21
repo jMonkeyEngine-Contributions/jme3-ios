@@ -62,9 +62,9 @@
             <zipfileset file="${avian.src.path}/build/darwin-i386-bootimage-openjdk-src/binaryToObject/binaryToObject" filemode="755" fullpath="avian-i386/binaryToObject"/>
             <zipfileset file="${avian.src.path}/build/darwin-i386-bootimage-openjdk-src/libavian.a" fullpath="avian-i386/libavian.a"/>
             <zipfileset file="${avian.src.path}/vm.pro" fullpath="vm.pro"/>
-            <zipfileset file="${avian.src.path}/vm.pro" fullpath="openjdk.pro"/>
+            <zipfileset file="${avian.src.path}/openjdk.pro" fullpath="openjdk.pro"/>
             <zipfileset dir="${avian.src.path}/build/darwin-i386-bootimage-openjdk-src/classpath" prefix="classpath/">
-                <!--exclude name="**/java/awt/**"/>
+                <exclude name="**/java/awt/**"/>
                 <exclude name="**/apple/**"/>
                 <exclude name="**/javax/swing/**"/>
                 <exclude name="**/javax/sound/**"/>
@@ -79,7 +79,7 @@
                 <exclude name="**/sun/print/**"/>
                 <exclude name="**/sun/swing/**"/>
                 <exclude name="**/com/sun/**"/>
-                <exclude name="**/com/oracle/**"/-->
+                <exclude name="**/com/oracle/**"/>
             </zipfileset>
         </zip>
     </target>
