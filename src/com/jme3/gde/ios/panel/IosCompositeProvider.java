@@ -96,7 +96,7 @@ public class IosCompositeProvider implements ProjectCustomizer.CompositeCategory
     private class SavePropsListener implements ActionListener {
 
         private String extensionName = "ios";
-        private String extensionVersion = "v0.2";
+        private String extensionVersion = "v0.3";
         private String avianVersion = "v0.3";
         private String[] extensionDependencies = new String[]{"jar", "build-ios"};
         private ProjectExtensionManager manager = new ProjectExtensionManager(extensionName, extensionVersion, extensionDependencies);

@@ -179,9 +179,9 @@
     <target name="-expand-ios-binary" unless="ios.images.uptodate" description="Expands libavian.a to .o files for the iOS project">
         <mkdir dir="${ios.build.libs.dir}"/>
         <echo>Expanding libavian.a for ${ios.arch}</echo>
-        <exec executable="ar" dir="${ios.build.libs.dir}">
+        <exec executable="ar" dir="${ios.build.libs.dir}" failonerror="true">
             <arg line="x"/>
-            <arg line="${ios.avian.binary}"/>
+            <arg line="'${ios.avian.binary}'"/>
         </exec>
         <delete file="${ios.build.libs.dir}/__.SYMDEF" failonerror="false" quiet="true"/>
     </target>
