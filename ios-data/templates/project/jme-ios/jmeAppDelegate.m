@@ -53,32 +53,7 @@ getEnv(JavaVM* vm)
     void* env;
     JNI_CreateJavaVM(&vm, &env, &vmArgs);
     JNIEnv* e = (JNIEnv*) env;
-    
-    /**
-     * jME Application initilization.
-     **/
-    jclass mainClass = (*e)->FindClass(e, "mygame.Main");
-    if (! (*e)->ExceptionCheck(e)) {
-        jmethodID mainConstructor = (*e)->GetMethodID(e, mainClass, "<init>", "()V");
-        if (! (*e)->ExceptionCheck(e)) {
-            jobject mainObject = (*e)->NewObject(e, mainClass, mainConstructor);
-            if (! (*e)->ExceptionCheck(e)) {
-                self.app = mainObject;
-                (*e)->NewGlobalRef(e, mainObject);
-            }else{
-                NSLog(@"Could not create new Application object");
-                (*e)->ExceptionDescribe(e);
-                (*e)->ExceptionClear(e);
-                return NO;
-            }
-        }else{
-            NSLog(@"Could not find Application constructor");
-            (*e)->ExceptionDescribe(e);
-            (*e)->ExceptionClear(e);
-            return NO;
-        }
-    }else{
-        NSLog(@"Could not find Application main class");
+    if ((*e)->ExceptionCheck(e)) {
         (*e)->ExceptionDescribe(e);
         (*e)->ExceptionClear(e);
         return NO;
@@ -90,9 +65,9 @@ getEnv(JavaVM* vm)
      **/
     jclass harnessClass = (*e)->FindClass(e, "JmeAppHarness");
     if (! (*e)->ExceptionCheck(e)) {
-        jmethodID harnessConstructor = (*e)->GetMethodID(e, harnessClass, "<init>", "(Lcom/jme3/app/Application;)V");
+        jmethodID harnessConstructor = (*e)->GetMethodID(e, harnessClass, "<init>", "(J)V");
         if (! (*e)->ExceptionCheck(e)) {
-            jobject harnessObject = (*e)->NewObject(e, harnessClass, harnessConstructor, self.app);
+            jobject harnessObject = (*e)->NewObject(e, harnessClass, harnessConstructor, (jlong)self);
             if (! (*e)->ExceptionCheck(e)) {
                 self.harness = harnessObject;
                 (*e)->NewGlobalRef(e, harnessObject);

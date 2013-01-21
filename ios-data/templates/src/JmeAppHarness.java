@@ -1,4 +1,4 @@
-import com.jme3.app.Application;
+import com.jme3.system.AppSettings;
 import com.jme3.system.ios.IosHarness;
 
 /**
@@ -15,25 +15,28 @@ public class JmeAppHarness extends IosHarness{
      * You can e.g. attach special AppStates or do similar things here. You can
      * access classes from this source directory as well as your main projects
      * sources and classpath.
-     * @param app The application object that has been created
      */
-    public JmeAppHarness(Application app) {
-        super(app);
+    public JmeAppHarness(long id) {
+        super(id);
+        app = new ${main.class}();
+        AppSettings settings = new AppSettings(true);
+        settings.setRenderer(null);
+        settings.setAudioRenderer(null);
+        this.app.setSettings(settings);
+        app.start();
     }
 
     @Override
     public void appPaused() {
-        super.appPaused();
     }
 
     @Override
     public void appReactivated() {
-        super.appReactivated();
     }
 
     @Override
     public void appClosed() {
-        super.appClosed();
+        app.stop();
     }
     
     /**

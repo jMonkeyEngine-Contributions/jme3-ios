@@ -37,7 +37,12 @@ import com.jme3.gde.core.j2seproject.ProjectExtensionProperties;
 import com.jme3.gde.core.util.ZipExtensionTool;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 
 import org.netbeans.api.project.Project;
@@ -56,6 +61,7 @@ import org.openide.util.NbBundle;
 @ProjectCustomizer.CompositeCategoryProvider.Registration(projectType = "org-netbeans-modules-java-j2seproject", category = "Application", position = 410)
 public class IosCompositeProvider implements ProjectCustomizer.CompositeCategoryProvider {
 
+    private static final Logger logger = Logger.getLogger(IosCompositeProvider.class.getName());
     private static final String CAT_MOBILE = "iOSDeployment"; // NOI18N
     private static ProjectExtensionProperties jwsProps = null;
     private String[] keyList = new String[]{
@@ -131,8 +137,9 @@ public class IosCompositeProvider implements ProjectCustomizer.CompositeCategory
                     try {
                         iosFolder = project.getProjectDirectory().createFolder("ios");
                         projFolder.copy(iosFolder, projFolder.getName(), null);
-                        srcFolder.copy(iosFolder, srcFolder.getName(), null);
                         propsFile.copy(iosFolder, propsFile.getName(), propsFile.getExt());
+                        FileObject newSrcFolder = srcFolder.copy(iosFolder, srcFolder.getName(), null);
+                        replaceHarnessData(newSrcFolder, properties);
                     } catch (IOException ex) {
                         showError("Error creating iOS folders", ex);
                         return;
@@ -160,6 +167,33 @@ public class IosCompositeProvider implements ProjectCustomizer.CompositeCategory
             } catch (IOException ioe) {
                 showError("Error storing properties", ioe);
                 Exceptions.printStackTrace(ioe);
+            }
+        }
+
+        private void replaceHarnessData(FileObject newSrcFolder, ProjectExtensionProperties properties) throws IOException {
+            //replace harness data
+            FileObject appHarnessFile = newSrcFolder.getFileObject("JmeAppHarness.java");
+            String text = appHarnessFile.asText();
+            String mainClass = properties.getProperty("main.class");
+            if (text == null || mainClass == null) {
+                logger.log(Level.INFO, "Could not replace harness data in folder {0}, file {4}, text = [{1}], mainClass = [{2}]", new Object[]{newSrcFolder, text, mainClass, appHarnessFile});
+                return;
+            }
+            text = text.replace("${main.class}", mainClass);
+            OutputStream out = appHarnessFile.getOutputStream();
+            BufferedWriter wrt = null;
+            try {
+                wrt = new BufferedWriter(new OutputStreamWriter(out));
+                wrt.write(text, 0, text.length());
+            } catch (IOException ey) {
+                Exceptions.printStackTrace(ey);
+            } finally {
+                if (wrt != null) {
+                    wrt.close();
+                }
+                if (out != null) {
+                    out.close();
+                }
             }
         }
     }
