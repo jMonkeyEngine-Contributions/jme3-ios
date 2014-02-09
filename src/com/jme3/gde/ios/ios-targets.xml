@@ -50,7 +50,7 @@
     
     <target name="-create-properties" depends="-check-properties-platform, -create-properties-arm, -create-properties-i386" description="Sets global properties based on platform">
         <property name="ios.sdk.sysroot" value="${ios.dev.root}/Platforms/${ios.target}.platform/Developer/SDKs/${ios.target}${ios.version}.sdk"/>
-        <property name="ios.cc.compiler.path" value="${ios.dev.root}/Platforms/${ios.target}.platform/Developer/usr/bin/${ios.cc.compiler}"/>
+        <property name="ios.cc.compiler.path" value="${ios.dev.root}/Toolchains/XcodeDefault.xctoolchain/usr/bin/${ios.cc.compiler}"/>
         <property name="ios.cc.flags" value="-isysroot ${ios.sdk.sysroot} -arch ${ios.arch.flag}"/>
     </target>
     

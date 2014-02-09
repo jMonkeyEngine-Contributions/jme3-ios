@@ -21,8 +21,12 @@ getEnv(JavaVM* vm)
 @synthesize pauseMethod = _pauseMethod;
 @synthesize reactivateMethod = _reactivateMethod;
 @synthesize closeMethod = _closeMethod;
+@synthesize updateMethod = _updateMethod;
+@synthesize drawMethod = _drawMethod;
+@synthesize reshapeMethod = _reshapeMethod;
 @synthesize ctx = _ctx;
 @synthesize glview = _glview;
+@synthesize glviewController = _glviewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -30,8 +34,19 @@ getEnv(JavaVM* vm)
      * GLES Context initialization
      **/
     _ctx = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    _glview.context = self.ctx;
+    _glview.context = _ctx;
+    _glview.delegate = self;
     
+    /**
+     * GLES View Controller initialization
+     **/
+    _glviewController = [[GLKViewController alloc] initWithNibName:nil bundle:nil]; // 1
+    _glviewController.view = _glview; // 2
+    _glviewController.delegate = self; // 3
+    _glviewController.preferredFramesPerSecond = 30; // 4
+    _glviewController.paused = NO;
+    _window.rootViewController = _glviewController; // 5
+
     /**
      * Java initilization.
      * Note that though it looks like a JVM is created, in fact only the JNI api is being used here,
@@ -39,7 +54,7 @@ getEnv(JavaVM* vm)
      **/
     JavaVMInitArgs vmArgs;
     vmArgs.version = JNI_VERSION_1_4;
-    vmArgs.nOptions = 3;
+    vmArgs.nOptions = 4;
     vmArgs.ignoreUnrecognized = JNI_TRUE;
     
     JavaVMOption options[vmArgs.nOptions];
@@ -48,6 +63,12 @@ getEnv(JavaVM* vm)
     options[0].optionString = (char*) "-Davian.bootimage=bootimageBin";
     options[1].optionString = (char*) "-Davian.codeimage=codeimageBin";
     options[2].optionString = (char*) "-Xbootclasspath:[resourcesJar]";
+
+    // Enable logging
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"logging" ofType:@"properties"];
+    NSString *log = [NSString stringWithFormat:@"-Djava.util.logging.config.file=%@", path];
+    options[3].optionString = (char*) [log cStringUsingEncoding:NSASCIIStringEncoding];
+    //
     
     JavaVM* vm;
     void* env;
@@ -77,6 +98,12 @@ getEnv(JavaVM* vm)
                 (*e)->ExceptionCheck(e);
                 self.closeMethod = (*e)->GetMethodID(e, harnessClass, "appClosed", "()V");
                 (*e)->ExceptionCheck(e);
+                self.updateMethod = (*e)->GetMethodID(e, harnessClass, "appUpdate", "()V");
+                (*e)->ExceptionCheck(e);
+                self.drawMethod = (*e)->GetMethodID(e, harnessClass, "appDraw", "()V");
+                (*e)->ExceptionCheck(e);
+                self.reshapeMethod = (*e)->GetMethodID(e, harnessClass, "appReshape", "(II)V");
+                (*e)->ExceptionCheck(e);
             }else{
                 NSLog(@"Could not create new iOS Harness object");
                 (*e)->ExceptionDescribe(e);
@@ -97,6 +124,8 @@ getEnv(JavaVM* vm)
     }
 
     self.vm = vm;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
     //return (*e)->ExceptionCheck(e) ? NO : YES;
     return YES;
@@ -165,6 +194,62 @@ getEnv(JavaVM* vm)
     [_glview release];
     [_ctx release];
     [super dealloc];
+}
+
+- (BOOL)shouldAutorotate
+{
+    //returns true if want to allow orientation change
+    return TRUE;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    //decide number of origination tob supported by Viewcontroller.
+    return UIInterfaceOrientationMaskAll;
+}
+
+- (void)didRotate:(NSNotification *)notification
+{
+    CGRect originalFrame = [[UIScreen mainScreen] bounds];
+    CGRect frame = [self.glview convertRect:originalFrame fromView:nil];
+    JNIEnv* e = getEnv(self.vm);
+    if (e) {
+        (*e)->CallVoidMethod(e, self.harness, self.reshapeMethod, (int)frame.size.width, (int)frame.size.height);
+        if ((*e)->ExceptionCheck(e)) {
+            NSLog(@"Could not invoke iOS Harness reshape");
+            (*e)->ExceptionDescribe(e);
+            (*e)->ExceptionClear(e);
+        }
+    }
+}
+
+#pragma mark - GLKViewDelegate
+
+- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
+    JNIEnv* e = getEnv(self.vm);
+    if (e) {
+        (*e)->CallVoidMethod(e, self.harness, self.drawMethod);
+        if ((*e)->ExceptionCheck(e)) {
+            NSLog(@"Could not invoke iOS Harness update");
+            (*e)->ExceptionDescribe(e);
+            (*e)->ExceptionClear(e);
+        }
+    }
+}
+
+#pragma mark - GLKViewControllerDelegate
+
+- (void)glkViewControllerUpdate:(GLKViewController *)controller {
+    JNIEnv* e = getEnv(self.vm);
+    if (e) {
+        (*e)->CallVoidMethod(e, self.harness, self.updateMethod);
+        if ((*e)->ExceptionCheck(e)) {
+            NSLog(@"Could not invoke iOS Harness update");
+            (*e)->ExceptionDescribe(e);
+            (*e)->ExceptionClear(e);
+        }
+    }
+
 }
 
 @end

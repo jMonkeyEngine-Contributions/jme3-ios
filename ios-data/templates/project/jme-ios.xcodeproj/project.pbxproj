@@ -19,6 +19,7 @@
 		08914C27142A826B00991C80 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08914C25142A826B00991C80 /* MainWindow_iPad.xib */; };
 		CC69FB0F16374681009585B5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC69FB0E16374681009585B5 /* OpenGLES.framework */; };
 		CCFD653F163755D80020EFDD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD653E163755D80020EFDD /* GLKit.framework */; };
+		E9E6261018A052130084FC12 /* logging.properties in Resources */ = {isa = PBXBuildFile; fileRef = E9E6260F18A052130084FC12 /* logging.properties */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		08914C26142A826B00991C80 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPad/en.lproj/MainWindow_iPad.xib; sourceTree = "<group>"; };
 		CC69FB0E16374681009585B5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		CCFD653E163755D80020EFDD /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		E9E6260F18A052130084FC12 /* logging.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = logging.properties; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				08914C11142A826B00991C80 /* InfoPlist.strings */,
 				08914C14142A826B00991C80 /* main.m */,
 				08914C16142A826B00991C80 /* jme-ios-Prefix.pch */,
+				E9E6260F18A052130084FC12 /* logging.properties */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9E6261018A052130084FC12 /* logging.properties in Resources */,
 				08914C13142A826B00991C80 /* InfoPlist.strings in Resources */,
 				08914C20142A826B00991C80 /* MainWindow_iPhone.xib in Resources */,
 				08914C27142A826B00991C80 /* MainWindow_iPad.xib in Resources */,
@@ -245,12 +249,13 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/System/Library/Frameworks/JavaVM.framework/Headers,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/JavaVM.framework/Headers/,
 					"\"$(SRCROOT)/../../gluegen/make/stub_includes/platform\"",
 					"\"$(SRCROOT)/../../gluegen/make/stub_includes/macosx\"",
 					"\"$(SRCROOT)/../../gluegen/build/gensrc/native\"",
@@ -261,7 +266,7 @@
 					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es2\"",
 					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = (
 					"-filelist",
 					"../../build/ios-arm/libs.list",
@@ -282,12 +287,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/System/Library/Frameworks/JavaVM.framework/Headers,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/JavaVM.framework/Headers/,
 					"\"$(SRCROOT)/../../gluegen/make/stub_includes/platform\"",
 					"\"$(SRCROOT)/../../gluegen/make/stub_includes/macosx\"",
 					"\"$(SRCROOT)/../../gluegen/build/gensrc/native\"",
@@ -298,7 +304,7 @@
 					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es2\"",
 					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-filelist",
@@ -322,8 +328,22 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "jme-ios/jme-ios-Prefix.pch";
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					/System/Library/Frameworks/JavaVM.framework/Headers,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/JavaVM.framework/Headers/,
+					"\"$(SRCROOT)/../../gluegen/make/stub_includes/platform\"",
+					"\"$(SRCROOT)/../../gluegen/make/stub_includes/macosx\"",
+					"\"$(SRCROOT)/../../gluegen/build/gensrc/native\"",
+					"\"$(SRCROOT)/../../gluegen/build/gensrc/native/MacOSX\"",
+					"\"$(SRCROOT)/../../jogl/make/stub_includes\"/**",
+					"\"$(SRCROOT)/../../jogl/src/jogl/native\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es1\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es2\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl\"",
+				);
 				INFOPLIST_FILE = "jme-ios/jme-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "jme-ios";
 				WRAPPER_EXTENSION = app;
 			};
@@ -338,8 +358,22 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "jme-ios/jme-ios-Prefix.pch";
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					/System/Library/Frameworks/JavaVM.framework/Headers,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/JavaVM.framework/Headers/,
+					"\"$(SRCROOT)/../../gluegen/make/stub_includes/platform\"",
+					"\"$(SRCROOT)/../../gluegen/make/stub_includes/macosx\"",
+					"\"$(SRCROOT)/../../gluegen/build/gensrc/native\"",
+					"\"$(SRCROOT)/../../gluegen/build/gensrc/native/MacOSX\"",
+					"\"$(SRCROOT)/../../jogl/make/stub_includes\"/**",
+					"\"$(SRCROOT)/../../jogl/src/jogl/native\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es1\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es2\"",
+					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl\"",
+				);
 				INFOPLIST_FILE = "jme-ios/jme-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "jme-ios";
 				WRAPPER_EXTENSION = app;
 			};
