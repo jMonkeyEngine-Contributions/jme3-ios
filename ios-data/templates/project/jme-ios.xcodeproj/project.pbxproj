@@ -273,6 +273,7 @@
 					"-filelist",
 					"../../build/ios-i386/libs.list",
 					"-lz",
+                    "-rdynamic",
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
