@@ -312,6 +312,7 @@
 					"../../build/ios-arm/libs.list",
 					"-filelist",
 					"../../build/ios-i386/libs.list",
+                    "-rdynamic",
 					"-lz",
 				);
 				SDKROOT = iphoneos;
