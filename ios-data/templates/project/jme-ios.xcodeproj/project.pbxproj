@@ -255,16 +255,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/System/Library/Frameworks/JavaVM.framework/Headers,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/JavaVM.framework/Headers/,
-					"\"$(SRCROOT)/../../gluegen/make/stub_includes/platform\"",
-					"\"$(SRCROOT)/../../gluegen/make/stub_includes/macosx\"",
-					"\"$(SRCROOT)/../../gluegen/build/gensrc/native\"",
-					"\"$(SRCROOT)/../../gluegen/build/gensrc/native/MacOSX\"",
-					"\"$(SRCROOT)/../../jogl/make/stub_includes\"/**",
-					"\"$(SRCROOT)/../../jogl/src/jogl/native\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es1\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es2\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = (
@@ -294,16 +284,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/System/Library/Frameworks/JavaVM.framework/Headers,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/JavaVM.framework/Headers/,
-					"\"$(SRCROOT)/../../gluegen/make/stub_includes/platform\"",
-					"\"$(SRCROOT)/../../gluegen/make/stub_includes/macosx\"",
-					"\"$(SRCROOT)/../../gluegen/build/gensrc/native\"",
-					"\"$(SRCROOT)/../../gluegen/build/gensrc/native/MacOSX\"",
-					"\"$(SRCROOT)/../../jogl/make/stub_includes\"/**",
-					"\"$(SRCROOT)/../../jogl/src/jogl/native\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es1\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es2\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -333,16 +313,6 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					/System/Library/Frameworks/JavaVM.framework/Headers,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/JavaVM.framework/Headers/,
-					"\"$(SRCROOT)/../../gluegen/make/stub_includes/platform\"",
-					"\"$(SRCROOT)/../../gluegen/make/stub_includes/macosx\"",
-					"\"$(SRCROOT)/../../gluegen/build/gensrc/native\"",
-					"\"$(SRCROOT)/../../gluegen/build/gensrc/native/MacOSX\"",
-					"\"$(SRCROOT)/../../jogl/make/stub_includes\"/**",
-					"\"$(SRCROOT)/../../jogl/src/jogl/native\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es1\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es2\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl\"",
 				);
 				INFOPLIST_FILE = "jme-ios/jme-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -363,16 +333,6 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					/System/Library/Frameworks/JavaVM.framework/Headers,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/JavaVM.framework/Headers/,
-					"\"$(SRCROOT)/../../gluegen/make/stub_includes/platform\"",
-					"\"$(SRCROOT)/../../gluegen/make/stub_includes/macosx\"",
-					"\"$(SRCROOT)/../../gluegen/build/gensrc/native\"",
-					"\"$(SRCROOT)/../../gluegen/build/gensrc/native/MacOSX\"",
-					"\"$(SRCROOT)/../../jogl/make/stub_includes\"/**",
-					"\"$(SRCROOT)/../../jogl/src/jogl/native\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es1\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl/es2\"",
-					"\"$(SRCROOT)/../../jogl/build/jogl/gensrc/native/jogl\"",
 				);
 				INFOPLIST_FILE = "jme-ios/jme-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
