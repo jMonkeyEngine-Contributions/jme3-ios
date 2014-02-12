@@ -97,7 +97,7 @@ public class IosCompositeProvider implements ProjectCustomizer.CompositeCategory
 
         private String extensionName = "ios";
         private String extensionVersion = "v0.3";
-        private String avianVersion = "v0.4";
+        private String avianVersion = "v0.4.3";
         private String[] extensionDependencies = new String[]{"jar", "build-ios"};
         private ProjectExtensionManager manager = new ProjectExtensionManager(extensionName, extensionVersion, extensionDependencies);
         private ProjectExtensionProperties properties;
