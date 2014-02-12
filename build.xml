@@ -78,8 +78,36 @@
                 <exclude name="**/sun/lwawt/**"/>
                 <exclude name="**/sun/print/**"/>
                 <exclude name="**/sun/swing/**"/>
-                <exclude name="**/com/sun/**"/>
                 <exclude name="**/com/oracle/**"/>
+                <!--crypto,demo,rmi,servicetag,tracing-->
+                <!--exclude name="**/com/sun/**"/>
+                <exclude name="**/com/sun/accessibility/**"/>
+                <exclude name="**/com/sun/activation/**"/-->
+                <exclude name="**/com/sun/awt/**"/>
+                <!--exclude name="**/com/sun/beans/**"/>
+                <exclude name="**/com/sun/codemodel/**"/>
+                <exclude name="**/com/sun/corba/**"/>
+                <exclude name="**/com/sun/imageio/**"/>
+                <exclude name="**/com/sun/istack/**"/>
+                <exclude name="**/com/sun/jarsigner/**"/>
+                <exclude name="**/com/sun/java/**"/>
+                <exclude name="**/com/sun/java_cup/**"/>
+                <exclude name="**/com/sun/javadoc/**"/>
+                <exclude name="**/com/sun/jmx/**"/>
+                <exclude name="**/com/sun/jndi/**"/>
+                <exclude name="**/com/sun/management/**"/>
+                <exclude name="**/com/sun/media/**"/>
+                <exclude name="**/com/sun/mirror/**"/>
+                <exclude name="**/com/sun/naming/**"/>
+                <exclude name="**/com/sun/net/**"/>
+                <exclude name="**/com/sun/nio/**"/>
+                <exclude name="**/com/sun/org/**"/>
+                <exclude name="**/com/sun/rowset/**"/>
+                <exclude name="**/com/sun/security/**"/>
+                <exclude name="**/com/sun/source/**"/>
+                <exclude name="**/com/sun/swing/**"/>
+                <exclude name="**/com/sun/tools/**"/>
+                <exclude name="**/com/sun/xml/**"/-->
             </zipfileset>
         </zip>
     </target>
