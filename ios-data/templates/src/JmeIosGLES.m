@@ -1794,7 +1794,7 @@ getPointer(JNIEnv *e, jobject buffer, jarray *array, jint *remaining, jint *offs
     elementSizeShift = getBufferElementSize(e, buffer);
     
     array = (void*) NULL;
-    *remaining = limit - position; 
+    *remaining = (limit - position) << elementSizeShift; 
     *offset = position;
     
     return getDirectBufferPointer(e, buffer);
@@ -1863,17 +1863,15 @@ getBufferElementSize(JNIEnv *e, jobject buffer) {
     }
 
 	if ((*e)->IsInstanceOf(e, buffer, floatBufferClass) == JNI_TRUE) {
-		return sizeof(jfloat);
+		return 2;
 	} else if ((*e)->IsInstanceOf(e, buffer, intBufferClass) == JNI_TRUE) {
-		return sizeof(jint);
+		return 2;
 	} else if ((*e)->IsInstanceOf(e, buffer, shortBufferClass) == JNI_TRUE) {
-		return sizeof(jshort);
+		return 1;
 	}
 	
 	//TODO: check other buffer types
-	
-	printf("fallback to size of byte\n");
-	return sizeof(jbyte);
+	return 0;
 }
 
 static int getNeededCount(GLint pname) {
