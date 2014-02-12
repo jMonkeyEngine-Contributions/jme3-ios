@@ -214,7 +214,8 @@ getEnv(JavaVM* vm)
     CGRect frame = [self.glview convertRect:originalFrame fromView:nil];
     JNIEnv* e = getEnv(self.vm);
     if (e) {
-        (*e)->CallVoidMethod(e, self.harness, self.reshapeMethod, (int)frame.size.width, (int)frame.size.height);
+        float scale = _glview.contentScaleFactor;
+        (*e)->CallVoidMethod(e, self.harness, self.reshapeMethod, (int)(frame.size.width * scale), (int)(frame.size.height * scale));
         if ((*e)->ExceptionCheck(e)) {
             NSLog(@"Could not invoke iOS Harness reshape");
             (*e)->ExceptionDescribe(e);
