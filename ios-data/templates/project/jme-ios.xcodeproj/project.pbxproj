@@ -18,6 +18,7 @@
 		08914C24142A826B00991C80 /* jmeAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 08914C23142A826B00991C80 /* jmeAppDelegate_iPad.m */; };
 		08914C27142A826B00991C80 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08914C25142A826B00991C80 /* MainWindow_iPad.xib */; };
 		CC69FB0F16374681009585B5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC69FB0E16374681009585B5 /* OpenGLES.framework */; };
+		CCD3ADB518AC38BE00FE8DC5 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD3ADB418AC38BE00FE8DC5 /* OpenAL.framework */; };
 		CCFD653F163755D80020EFDD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD653E163755D80020EFDD /* GLKit.framework */; };
 		E9E6261018A052130084FC12 /* logging.properties in Resources */ = {isa = PBXBuildFile; fileRef = E9E6260F18A052130084FC12 /* logging.properties */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 		08914C23142A826B00991C80 /* jmeAppDelegate_iPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = jmeAppDelegate_iPad.m; path = iPad/jmeAppDelegate_iPad.m; sourceTree = "<group>"; };
 		08914C26142A826B00991C80 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPad/en.lproj/MainWindow_iPad.xib; sourceTree = "<group>"; };
 		CC69FB0E16374681009585B5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		CCD3ADB418AC38BE00FE8DC5 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		CCFD653E163755D80020EFDD /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		E9E6260F18A052130084FC12 /* logging.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = logging.properties; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,6 +54,7 @@
 				08914C09142A826B00991C80 /* UIKit.framework in Frameworks */,
 				08914C0B142A826B00991C80 /* Foundation.framework in Frameworks */,
 				08914C0D142A826B00991C80 /* CoreGraphics.framework in Frameworks */,
+				CCD3ADB518AC38BE00FE8DC5 /* OpenAL.framework in Frameworks */,
 				CC69FB0F16374681009585B5 /* OpenGLES.framework in Frameworks */,
 				CCFD653F163755D80020EFDD /* GLKit.framework in Frameworks */,
 			);
@@ -80,6 +83,7 @@
 		08914C07142A826B00991C80 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CCD3ADB418AC38BE00FE8DC5 /* OpenAL.framework */,
 				CCFD653E163755D80020EFDD /* GLKit.framework */,
 				CC69FB0E16374681009585B5 /* OpenGLES.framework */,
 				08914C08142A826B00991C80 /* UIKit.framework */,
@@ -160,6 +164,11 @@
 			isa = PBXProject;
 			attributes = {
 				ORGANIZATIONNAME = "ECOVATE INC, d.b.a. ReadyTalk";
+				TargetAttributes = {
+					08914C03142A826B00991C80 = {
+						DevelopmentTeam = X9TVYA7QX5;
+					};
+				};
 			};
 			buildConfigurationList = 08914BFE142A826B00991C80 /* Build configuration list for PBXProject "jme-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -253,17 +262,15 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					/System/Library/Frameworks/JavaVM.framework/Headers,
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				HEADER_SEARCH_PATHS = /System/Library/Frameworks/JavaVM.framework/Headers;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-filelist",
 					"../../build/ios-arm/libs.list",
 					"-filelist",
 					"../../build/ios-i386/libs.list",
 					"-lz",
-                    "-rdynamic",
+					"-rdynamic",
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -282,18 +289,16 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					/System/Library/Frameworks/JavaVM.framework/Headers,
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				HEADER_SEARCH_PATHS = /System/Library/Frameworks/JavaVM.framework/Headers;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-filelist",
 					"../../build/ios-arm/libs.list",
 					"-filelist",
 					"../../build/ios-i386/libs.list",
-                    "-rdynamic",
 					"-lz",
+					"-rdynamic",
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -308,15 +313,16 @@
 					armv7,
 					i386,
 				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "jme-ios/jme-ios-Prefix.pch";
 				GCC_VERSION = "";
-				HEADER_SEARCH_PATHS = (
-					/System/Library/Frameworks/JavaVM.framework/Headers,
-				);
+				HEADER_SEARCH_PATHS = /System/Library/Frameworks/JavaVM.framework/Headers;
 				INFOPLIST_FILE = "jme-ios/jme-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "jme-ios";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -328,15 +334,16 @@
 					armv7,
 					i386,
 				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "jme-ios/jme-ios-Prefix.pch";
 				GCC_VERSION = "";
-				HEADER_SEARCH_PATHS = (
-					/System/Library/Frameworks/JavaVM.framework/Headers,
-				);
+				HEADER_SEARCH_PATHS = /System/Library/Frameworks/JavaVM.framework/Headers;
 				INFOPLIST_FILE = "jme-ios/jme-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "jme-ios";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
