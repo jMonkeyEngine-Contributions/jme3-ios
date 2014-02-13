@@ -29,8 +29,6 @@ public class JmeAppHarness extends IosHarness{
         super(id);
         app = new mygame.Main();
         AppSettings settings = new AppSettings(true);
-        //settings.setRenderer(null);
-        settings.setAudioRenderer(null);
         this.app.setSettings(settings);
         app.start();
         logger.log(Level.FINE, "JmeAppHarness constructor");
