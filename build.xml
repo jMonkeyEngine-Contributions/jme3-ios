@@ -14,9 +14,44 @@
         </zip>
     </target>
     
-    <target name="package-avian" depends="init" description="Builds and packages the avian library">
-        <delete file="src/com/jme3/gde/ios/avian-openjdk-mac.zip" failonerror="false"/>
-        <exec executable="make" dir="${avian.src.path}">
+    <target name="sources.error" unless="sources.available">
+<echo>Check needed folders:
+JDK binaries: ${avian.jdk.path.exists}
+JDK sources: ${avian.jdk.src.path.exists}
+Avian sources: ${avian.src.path.exists}
+Avian Hello iOS sources: ${hello-ios.src.path.exists}</echo>
+        <fail>Avian or JDK sources not found! Please configure the avian and JDK source locations in the properties file!</fail>
+    </target>
+
+    <target name="sources.check">
+        <condition property="avian.jdk.path.exists" else="false">
+            <available file="${avian.jdk.path}" type="dir"/>
+        </condition>
+        <condition property="avian.jdk.src.path.exists" else="false">
+            <available file="${avian.jdk.src.path}" type="dir"/>
+        </condition>
+        <condition property="avian.src.path.exists" else="false">
+            <available file="${avian.src.path}" type="dir"/>
+        </condition>
+        <condition property="hello-ios.src.path.exists" else="false">
+            <available file="${hello-ios.src.path}" type="dir"/>
+        </condition>
+        <condition property="sources.available">
+            <and>
+                <isTrue value="${avian.jdk.path.exists}"/>
+                <isTrue value="${avian.jdk.src.path.exists}"/>
+                <isTrue value="${avian.src.path.exists}"/>
+                <isTrue value="${hello-ios.src.path.exists}"/>
+            </and>
+        </condition>
+    </target>
+
+    <target name="package-avian" depends="init, sources.check, sources.error" description="Builds and packages the avian library" if="sources.available">
+        <echo>Note to build avian you currently need to copy ar, libtool and ranlib
+from XCode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin
+to   XCode.app/Contents/Developer/usr/bin
+        </echo>
+        <exec executable="make" dir="${avian.src.path}" failonerror="true">
             <env key="JAVA_HOME" value="${avian.jdk.path}"/>
             <arg line="clean"/>
         </exec>
@@ -34,6 +69,7 @@
             <arg line="build/darwin-arm-bootimage-openjdk-src/classpath.jar"/>
             <arg line="build/darwin-arm-bootimage-openjdk-src/libavian.a"/>
         </exec>
+        <delete file="src/com/jme3/gde/ios/avian-openjdk-mac.zip" failonerror="false"/>
         <zip destfile="src/com/jme3/gde/ios/avian-openjdk-mac.zip">
             <zipfileset file="${avian.src.path}/build/darwin-arm-bootimage-openjdk-src/bootimage-generator" filemode="755" fullpath="avian-arm/bootimage-generator"/>
             <zipfileset file="${avian.src.path}/build/darwin-arm-bootimage-openjdk-src/binaryToObject/binaryToObject" filemode="755" fullpath="avian-arm/binaryToObject"/>
