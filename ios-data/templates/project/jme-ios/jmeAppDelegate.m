@@ -1,4 +1,5 @@
 #include <stdint.h>
+#import <CoreGraphics/CoreGraphics.h>
 #import "jmeAppDelegate.h"
 
 static JNIEnv*
@@ -24,6 +25,9 @@ getEnv(JavaVM* vm)
 @synthesize updateMethod = _updateMethod;
 @synthesize drawMethod = _drawMethod;
 @synthesize reshapeMethod = _reshapeMethod;
+@synthesize injectTouchBegin = _injectTouchBegin;
+@synthesize injectTouchMove = _injectTouchMove;
+@synthesize injectTouchEnd = _injectTouchEnd;
 @synthesize ctx = _ctx;
 @synthesize glview = _glview;
 @synthesize glviewController = _glviewController;
@@ -104,6 +108,12 @@ getEnv(JavaVM* vm)
                 self.drawMethod = (*e)->GetMethodID(e, harnessClass, "appDraw", "()V");
                 (*e)->ExceptionCheck(e);
                 self.reshapeMethod = (*e)->GetMethodID(e, harnessClass, "appReshape", "(II)V");
+                (*e)->ExceptionCheck(e);
+                self.injectTouchBegin = (*e)->GetMethodID(e, harnessClass, "injectTouchBegin", "(IJFF)V");
+                (*e)->ExceptionCheck(e);
+                self.injectTouchMove = (*e)->GetMethodID(e, harnessClass, "injectTouchMove", "(IJFF)V");
+                (*e)->ExceptionCheck(e);
+                self.injectTouchEnd = (*e)->GetMethodID(e, harnessClass, "injectTouchEnd", "(IJFF)V");
                 (*e)->ExceptionCheck(e);
             }else{
                 NSLog(@"Could not create new iOS Harness object");
@@ -252,6 +262,57 @@ getEnv(JavaVM* vm)
         }
     }
 
+}
+
+#pragma mark - UIResponder
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"touchesBegan");
+    JNIEnv* e = getEnv(self.vm);
+    if (e) {
+    	UITouch *touch = [touches anyObject];
+    	CGPoint position = [touch locationInView: nil];
+        (*e)->CallVoidMethod(e, self.harness, self.injectTouchBegin, 0, touch.timestamp, position.x, position.y);
+        if ((*e)->ExceptionCheck(e)) {
+            NSLog(@"Could not invoke iOS Harness injectTouchBegin");
+            (*e)->ExceptionDescribe(e);
+            (*e)->ExceptionClear(e);
+        }
+    }
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"touchesMoved");
+    JNIEnv* e = getEnv(self.vm);
+    if (e) {
+    	UITouch *touch = [touches anyObject];
+    	CGPoint position = [touch locationInView: nil];
+        (*e)->CallVoidMethod(e, self.harness, self.injectTouchMove, 0, touch.timestamp, position.x, position.y);
+        if ((*e)->ExceptionCheck(e)) {
+            NSLog(@"Could not invoke iOS Harness injectTouchMove");
+            (*e)->ExceptionDescribe(e);
+            (*e)->ExceptionClear(e);
+        }
+    }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"touchesEnded");
+    JNIEnv* e = getEnv(self.vm);
+    if (e) {
+    	UITouch *touch = [touches anyObject];
+    	CGPoint position = [touch locationInView: nil];
+        (*e)->CallVoidMethod(e, self.harness, self.injectTouchEnd, 0, touch.timestamp, position.x, position.y);
+        if ((*e)->ExceptionCheck(e)) {
+            NSLog(@"Could not invoke iOS Harness injectTouchEnd");
+            (*e)->ExceptionDescribe(e);
+            (*e)->ExceptionClear(e);
+        }
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"touchesCancelled");
 }
 
 @end

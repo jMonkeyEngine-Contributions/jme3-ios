@@ -4,7 +4,7 @@
 #define __LP64__ 1
 #include <jni.h>
 
-@interface jmeAppDelegate : NSObject <UIApplicationDelegate, GLKViewDelegate, GLKViewControllerDelegate>
+@interface jmeAppDelegate : UIResponder <UIApplicationDelegate, GLKViewDelegate, GLKViewControllerDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet GLKView *glview;
@@ -19,5 +19,8 @@
 @property jmethodID updateMethod;
 @property jmethodID drawMethod;
 @property jmethodID reshapeMethod;
+@property jmethodID injectTouchBegin;
+@property jmethodID injectTouchMove;
+@property jmethodID injectTouchEnd;
 
 @end
