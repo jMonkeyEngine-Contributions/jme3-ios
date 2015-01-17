@@ -67,12 +67,13 @@ getEnv(JavaVM* vm)
     
     options[0].optionString = (char*) "-Davian.bootimage=bootimageBin";
     options[1].optionString = (char*) "-Davian.codeimage=codeimageBin";
-    options[2].optionString = (char*) "-Xbootclasspath:[resourcesJar]";
+    options[2].optionString = (char*) "-Dsun.reflect.inflationThreshold=2147483647";
+    options[3].optionString = (char*) "-Xbootclasspath:[resourcesJar]";
 
     // Enable logging
     NSString *path = [[NSBundle mainBundle] pathForResource:@"logging" ofType:@"properties"];
     NSString *log = [NSString stringWithFormat:@"-Djava.util.logging.config.file=%@", path];
-    options[3].optionString = (char*) [log cStringUsingEncoding:NSASCIIStringEncoding];
+    options[4].optionString = (char*) [log cStringUsingEncoding:NSASCIIStringEncoding];
     //
     
     JavaVM* vm;
