@@ -80,6 +80,31 @@ to   XCode.app/Contents/Developer/usr/bin
         </exec>
         <exec executable="make" dir="${avian.src.path}" failonerror="true">
             <env key="JAVA_HOME" value="${avian.jdk.path}"/>
+            <arg line="arch=arm64"/>
+            <arg line="platform=ios"/>
+            <arg line="process=compile"/>
+            <arg line="openjdk='${avian.jdk.path}'"/>
+            <arg line="openjdk-src='${avian.jdk.src.path}'"/>
+            <arg line="bootimage=true"/>
+            <!--arg line="mode=debug"/-->
+            <arg line="build/ios-arm64-bootimage-openjdk-src/bootimage-generator"/>
+            <arg line="build/ios-arm64-bootimage-openjdk-src/binaryToObject/binaryToObject"/>
+            <arg line="build/ios-arm64-bootimage-openjdk-src/classpath.jar"/>
+            <arg line="build/ios-arm64-bootimage-openjdk-src/libavian.a"/>
+        </exec>
+        <zip destfile="src/com/jme3/gde/ios/avian-openjdk-mac.zip" update="true">
+            <zipfileset file="${avian.src.path}/build/ios-arm64-bootimage-openjdk-src/bootimage-generator" filemode="755" fullpath="avian-arm64/bootimage-generator"/>
+            <zipfileset file="${avian.src.path}/build/ios-arm64-bootimage-openjdk-src/binaryToObject/binaryToObject" filemode="755" fullpath="avian-arm64/binaryToObject"/>
+            <zipfileset file="${avian.src.path}/build/ios-arm64-bootimage-openjdk-src/libavian.a" fullpath="avian-arm64/libavian.a"/>
+            <zipfileset file="${avian.src.path}/vm.pro" fullpath="vm.pro"/>
+            <zipfileset file="${avian.src.path}/openjdk.pro" fullpath="openjdk.pro"/>
+        </zip>
+        <exec executable="make" dir="${avian.src.path}">
+            <env key="JAVA_HOME" value="${avian.jdk.path}"/>
+            <arg line="clean"/>
+        </exec>
+        <exec executable="make" dir="${avian.src.path}" failonerror="true">
+            <env key="JAVA_HOME" value="${avian.jdk.path}"/>
             <arg line="arch=i386"/>
             <arg line="platform=ios"/>
             <arg line="process=compile"/>
@@ -97,6 +122,8 @@ to   XCode.app/Contents/Developer/usr/bin
             <zipfileset file="${avian.src.path}/build/ios-i386-bootimage-openjdk-src/libavian.a" fullpath="avian-i386/libavian.a"/>
             <zipfileset file="${avian.src.path}/vm.pro" fullpath="vm.pro"/>
             <zipfileset file="${avian.src.path}/openjdk.pro" fullpath="openjdk.pro"/>
+        </zip>
+        <zip destfile="src/com/jme3/gde/ios/avian-openjdk-mac.zip" update="true">
             <zipfileset dir="${avian.src.path}/build/ios-i386-bootimage-openjdk-src/classpath" prefix="classpath/">
                 <exclude name="**/java/awt/**"/>
                 <exclude name="**/apple/**"/>
@@ -108,16 +135,19 @@ to   XCode.app/Contents/Developer/usr/bin
                 <exclude name="**/sun/awt/**"/>
                 <exclude name="**/sun/corba/**"/>
                 <exclude name="**/sun/font/**"/>
-                <exclude name="**/sun/java2d/**"/>
+                <!--exclude name="**/sun/java2d/**"/-->
                 <exclude name="**/sun/lwawt/**"/>
                 <exclude name="**/sun/print/**"/>
                 <exclude name="**/sun/swing/**"/>
                 <exclude name="**/com/oracle/**"/>
+                
                 <!--crypto,demo,rmi,servicetag,tracing-->
                 <!--exclude name="**/com/sun/**"/>
                 <exclude name="**/com/sun/accessibility/**"/>
                 <exclude name="**/com/sun/activation/**"/-->
+                
                 <exclude name="**/com/sun/awt/**"/>
+                
                 <!--exclude name="**/com/sun/beans/**"/>
                 <exclude name="**/com/sun/codemodel/**"/>
                 <exclude name="**/com/sun/corba/**"/>

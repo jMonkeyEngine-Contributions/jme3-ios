@@ -271,6 +271,8 @@
 					"-filelist",
 					"../../build/ios-arm/libs.list",
 					"-filelist",
+					"../../build/ios-arm64/libs.list",
+					"-filelist",
 					"../../build/ios-i386/libs.list",
 					"-lz",
 					"-rdynamic",
@@ -301,6 +303,8 @@
 				OTHER_LDFLAGS = (
 					"-filelist",
 					"../../build/ios-arm/libs.list",
+					"-filelist",
+					"../../build/ios-arm64/libs.list",
 					"-filelist",
 					"../../build/ios-i386/libs.list",
 					"-lz",

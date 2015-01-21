@@ -1,19 +1,27 @@
     <target name="build-ios">
         <antcall target="build-ios-arm" inheritall="false" inheritrefs="false"/>
+        <antcall target="build-ios-arm64" inheritall="false" inheritrefs="false"/>
         <antcall target="build-ios-i386" inheritall="false" inheritrefs="false"/>
         <echo>The needed native iOS libraries have been built, open the XCode project at ios/project to run the application on iOS.</echo>
     </target>
 
     <target name="build-ios-arm" depends="init, -init-platform-arm, -create-properties, -build-ios" description="Builds iOS libraries for device"/>
     
+    <target name="build-ios-arm64" depends="init, -init-platform-arm64, -create-properties, -build-ios" description="Builds iOS libraries for device"/>
+    
     <target name="build-ios-i386" depends="init, -init-platform-i386, -create-properties, -build-ios" description="Builds iOS libraries for simulator"/>
 
-    <target name="-init-platform-arm" description="Initialize for i386 platform">
+    <target name="-init-platform-arm" description="Initialize for arm platform">
         <property name="ios.arch" value="arm"/>
         <property file="ios/ios.properties"/>
     </target>
+
+    <target name="-init-platform-arm64" description="Initialize for arm64 platform">
+        <property name="ios.arch" value="arm64"/>
+        <property file="ios/ios.properties"/>
+    </target>
     
-    <target name="-init-platform-i386" description="Initialize for arm platform">
+    <target name="-init-platform-i386" description="Initialize for i386 platform">
         <property name="ios.arch" value="i386"/>
         <property file="ios/ios.properties"/>
     </target>
@@ -23,6 +31,12 @@
              classpath="${libs.pro-guard.classpath}"/>
         <condition property="ios.do.arm">
             <equals arg1="${ios.arch}" arg2="arm"/>
+        </condition>
+        <condition property="ios.do.arm64">
+            <equals arg1="${ios.arch}" arg2="arm64"/>
+        </condition>
+        <condition property="ios.do.i386">
+            <equals arg1="${ios.arch}" arg2="i386"/>
         </condition>
     </target>
     
@@ -37,7 +51,18 @@
         <property name="ios.avian.binary" value="${ios.avian.arm.binary}"/>
     </target>
 
-    <target name="-create-properties-i386" unless="ios.do.arm" description="Sets properties for i386 build">
+    <target name="-create-properties-arm64" if="ios.do.arm64" description="Sets properties for arm64 build">
+        <property name="ios.target" value="iPhoneOS"/>
+        <property name="ios.arch.flag" value="${ios.arm64.flag}"/>
+        
+        <property name="ios.avian.classpath" value="${ios.avian.arm64.classpath}"/>
+        <property name="ios.avian.bootimage-generator" value="${ios.avian.arm64.bootimage-generator}"/>
+        <property name="ios.avian.generator" value="${ios.avian.arm64.generator}"/>
+        <property name="ios.avian.converter" value="${ios.avian.arm64.converter}"/>
+        <property name="ios.avian.binary" value="${ios.avian.arm64.binary}"/>
+    </target>
+
+    <target name="-create-properties-i386" if="ios.do.i386" description="Sets properties for i386 build">
         <property name="ios.target" value="iPhoneSimulator"/>
         <property name="ios.arch.flag" value="${ios.i386.flag}"/>
         
@@ -48,7 +73,7 @@
         <property name="ios.avian.binary" value="${ios.avian.i386.binary}"/>
     </target>
     
-    <target name="-create-properties" depends="-check-properties-platform, -create-properties-arm, -create-properties-i386" description="Sets global properties based on platform">
+    <target name="-create-properties" depends="-check-properties-platform, -create-properties-arm, -create-properties-arm64, -create-properties-i386" description="Sets global properties based on platform">
         <property name="ios.sdk.sysroot" value="${ios.dev.root}/Platforms/${ios.target}.platform/Developer/SDKs/${ios.target}${ios.version}.sdk"/>
         <property name="ios.cc.compiler.path" value="${ios.dev.root}/Toolchains/XcodeDefault.xctoolchain/usr/bin/${ios.cc.compiler}"/>
         <property name="ios.cc.flags" value="-isysroot ${ios.sdk.sysroot} -arch ${ios.arch.flag}"/>
@@ -157,6 +182,7 @@
     </target>
     
     <target name="-compile-ios-native" description="Compiles the native classes from ios/src for the iOS project">
+        <echo>Compiling native code for ${ios.arch}</echo>
         <mkdir dir="${ios.build.libs.dir}"/>
         <apply executable="${ios.cc.compiler.path}" failonerror="true" dir="${ios.build.libs.dir}">
             <arg value="-c"/>
