@@ -59,7 +59,7 @@ getEnv(JavaVM* vm)
      **/
     JavaVMInitArgs vmArgs;
     vmArgs.version = JNI_VERSION_1_4;
-    vmArgs.nOptions = 4;
+    vmArgs.nOptions = 5;
     vmArgs.ignoreUnrecognized = JNI_TRUE;
     
     JavaVMOption options[vmArgs.nOptions];
