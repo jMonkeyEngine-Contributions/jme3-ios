@@ -99,8 +99,8 @@ Java_com_jme3_system_ios_IosImageLoader_loadImageData(JNIEnv* e, jclass obj, job
         return nil;
     }
     CGImageRef inImage = [inputImage CGImage];
-    int ht = CGImageGetWidth(inImage);
-    int wdth = CGImageGetHeight(inImage);
+    int wdth = CGImageGetWidth(inImage);
+    int ht = CGImageGetHeight(inImage);
     // NewDirectByteBuffer seems to fail? -> Creating ByteBuffer in java
     jobject nativeBuffer = (*e)->CallStaticObjectMethod(e, bufferUtilsClass, newBufferMethod, ht*wdth*4);
     if (checkJNIException(e)) {
@@ -112,7 +112,7 @@ Java_com_jme3_system_ios_IosImageLoader_loadImageData(JNIEnv* e, jclass obj, job
     NSUInteger bytesPerRowImg = CGImageGetBytesPerRow(inImage);
     NSUInteger bitsPerComponentImg = CGImageGetBitsPerComponent(inImage);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(rawData,ht,wdth,bitsPerComponentImg,bytesPerRowImg,colorSpace,kCGImageAlphaPremultipliedLast| kCGBitmapByteOrder32Big);
+    CGContextRef context = CGBitmapContextCreate(rawData,wdth,ht,bitsPerComponentImg,bytesPerRowImg,colorSpace,kCGImageAlphaPremultipliedLast| kCGBitmapByteOrder32Big);
     CGColorSpaceRelease(colorSpace);
     CGContextDrawImage(context,CGRectMake(0,0,wdth,ht), inImage);
     CGContextRelease(context);
